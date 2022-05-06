@@ -1,88 +1,51 @@
-for(let i = 0; i < document.querySelectorAll(".tecla-0").length; i++){
-    document.querySelectorAll(".tecla-0")[i].addEventListener("click", function(){
-        document.querySelector(".tela").innerHTML += "0";
-    });
+//variaveis dos numeros 
+const numeros = document.querySelectorAll("[id*=tecla]");
+const inserirNumero = (evento) => atualizarDisplay(evento.target.textContent);
+let novoNumero = true;
+//variaveis dos operadores
+const operadores = document.querySelectorAll("[id*=operador]");
+ // o [id*=""] serve para que seja buscado todos os elementos que tenham o id que começa com "tecla" 
+ let operador;
+ let numeroAnterior;
+ const operacaoPendente = () => operador !== undefined;
+
+ 
+ //variaveis do display
+const display = document.getElementById("display");
+const atualizarDisplay = (texto) => {
+    if (novoNumero) {
+        display.textContent = texto;
+        novoNumero = false;
+    }else{
+        display.textContent += texto;
+        //serve para concatenar o texto que está no display com o texto que está no botão
+    }
 }
 
-for(let i = 0; i < document.querySelectorAll(".tecla-1").length; i++){
-    document.querySelectorAll(".tecla-1")[i].addEventListener("click", function(){
-        document.querySelector(".tela").innerHTML += "1";
-    });
+ //elemesnto que está dentro do array é o elemento que está sendo clicado
+numeros.forEach(numero => numero.addEventListener('click', inserirNumero));
+
+const selecionarOperador = (evento) => {
+    if(!novoNumero){
+    //testar se é uma operação
+    novoNumero = true;
+    operador = evento.target.textContent;
+    //guarda o operador que foi clicado
+    numeroAnterior = parseFloat(display.textContent);
+    //guarda o numero que está no display
+    console.log(operador);
+    }
 }
+operadores.forEach(operador => operador.addEventListener('click', selecionarOperador));
 
-for(let i = 0; i < document.querySelectorAll(".tecla-2").length; i++){
-    document.querySelectorAll(".tecla-2")[i].addEventListener("click", function(){
-        document.querySelector(".tela").innerHTML += "2";
-    });
-}
+//criação da função para calcular
+const calcular = () => {
+    if(operacaoPendente()){
+        const numeroAtual = parseFloat(display.textContent);
+           if(operador == "+"){
+               atualizarDisplay(numeroAnterior + numeroAtual)
+           }
+    }
+   }
 
-for(let i = 0; i < document.querySelectorAll(".tecla-3").length; i++){
-    document.querySelectorAll(".tecla-3")[i].addEventListener("click", function(){
-        document.querySelector(".tela").innerHTML += "3";
-    });
-}
-
-  for(let i = 0; i < document.querySelectorAll(".tecla-4").length; i++){
-       document.querySelectorAll(".tecla-4")[i].addEventListener("click", function(){
-         document.querySelector(".tela").innerHTML += "4";
-       });
-  }
-
-
-     for(let i = 0; i < document.querySelectorAll(".tecla-5").length; i++){
-         document.querySelectorAll(".tecla-5")[i].addEventListener("click", function(){
-             document.querySelector(".tela").innerHTML += "5";
-         });
-     }
-     
-     for(let i = 0; i < document.querySelectorAll(".tecla-6").length; i++){
-         document.querySelectorAll(".tecla-6")[i].addEventListener("click", function(){
-             document.querySelector(".tela").innerHTML += "6";
-         });
-     }
-
-     for(let i = 0; i < document.querySelectorAll(".tecla-7").length; i++){
-         document.querySelectorAll(".tecla-7")[i].addEventListener("click", function(){
-             document.querySelector(".tela").innerHTML += "7";
-         });
-     }
-
-     for(let i = 0; i < document.querySelectorAll(".tecla-8").length; i++){
-         document.querySelectorAll(".tecla-8")[i].addEventListener("click", function(){
-             document.querySelector(".tela").innerHTML += "8";
-         });
-     }
-
-     for(let i = 0; i < document.querySelectorAll(".tecla-9").length; i++){
-         document.querySelectorAll(".tecla-9")[i].addEventListener("click", function(){
-             document.querySelector(".tela").innerHTML += "9";
-         });
-     }
-     
-     //comando para apagar tudo "CE" //
-     let teclaApagarTudo = document.querySelector(".apagar-tudo");
-     teclaApagarTudo.addEventListener("click", event =>{
-         document.querySelector(".tela").innerHTML = "";
-         document.getElementsByName(teclaApagarTudo).reset();
-    });
-
-    //operadores matematicos
-    let teclaSoma = document.querySelector(".somar");
-    teclaSoma.addEventListener("click", event =>{
-        document.querySelector(".tela").innerHTML += "+";
-    });
-
-    let teclaSubtrair = document.querySelector(".subtrair");
-    teclaSubtrair.addEventListener("click", event =>{
-        document.querySelector(".tela").innerHTML += "-";
-    });
-
-    let teclaMultiplicar = document.querySelector(".multiplicar");
-    teclaMultiplicar.addEventListener("click", event =>{
-        document.querySelector(".tela").innerHTML += "*";
-    });
-
-    let teclaDividir = document.querySelector(".dividir");
-    teclaDividir.addEventListener("click", event =>{
-        document.querySelector(".tela").innerHTML += "/";
-    });
+//parei em 22:17 do video - https://www.youtube.com/watch?v=oRZQ5EZOrQk
