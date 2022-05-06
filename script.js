@@ -130,4 +130,3 @@ const inserirVirgula = () => {
 
 document.getElementById("virgula").addEventListener('click', inserirVirgula);
 
-//parei em 22:17 do video - https://www.youtube.com/watch?v=oRZQ5EZOrQk
